@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agr.agrsecurity.mapper.UserMapper">
+
+
+    <select id="getUserVO" resultType="com.agr.agrsecurity.entry.VO.UserVO">
+        select
+            user_id as userId,
+            dept_id as deptId
+        from agr.sys_user
+    </select>
+
+    <select id="getUserVOByLogin" resultType="com.agr.agrsecurity.entry.VO.UserVO">
+        select
+            user_id as userId,
+            dept_id as deptId
+        from agr.sys_user
+        where login_name = #{userName}
+        and password = #{passWord}
+    </select>
+</mapper>

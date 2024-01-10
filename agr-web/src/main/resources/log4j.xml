@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="600">
+
+    <Properties>
+        <!-- ${sys:LOG_PATH} 读取的就是 bootstrap.yml 中的 logging.file.path 的值 -->
+        <property name="LOG_PATH" value="${sys:LOG_PATH}"/>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%-5p] %l - %m%n"/>
+        </Console>
+
+        <RollingFile name="RollingFile"  fileName="${LOG_PATH}.log"
+                     filePattern="${LOG_PATH}-%i.log" >
+            <PatternLayout pattern="[%d{yyyy-MM-dd 'at' HH:mm:ss z}] [%-5p] %l - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="200MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="7" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <logger name="org.springframework" level="info"/>
+        <logger name="org.mybatis" level="info"/>
+        <Root level="info">
+            <appender-ref ref="RollingFile"/>
+            <appender-ref ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
