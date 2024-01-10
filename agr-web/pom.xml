@@ -52,7 +52,7 @@
                 </executions>
                 <!-- 指定启动类 -->
                 <configuration>
-                    <mainClass>com.agr.ArzWebApplication</mainClass>
+                    <mainClass>com.agr.AgrWebApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

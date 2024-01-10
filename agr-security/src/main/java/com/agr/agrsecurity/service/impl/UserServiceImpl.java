@@ -1,5 +1,6 @@
 package com.agr.agrsecurity.service.impl;
 
+import com.agr.agrsecurity.entry.VO.SysUserVO;
 import com.agr.agrsecurity.entry.VO.UserVO;
 import com.agr.agrsecurity.entry.query.UserLoginQuery;
 import com.agr.agrsecurity.mapper.UserMapper;
@@ -34,5 +35,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO login(UserLoginQuery query) {
         return userMapper.getUserVOByLogin(query.getUserName(),query.getPassWord());
+    }
+
+
+
+    @Override
+    public SysUserVO selectUserByUserName(String UserName) {
+        return userMapper.selectUserByUserName(UserName);
     }
 }

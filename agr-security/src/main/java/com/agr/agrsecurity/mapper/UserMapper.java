@@ -1,5 +1,6 @@
 package com.agr.agrsecurity.mapper;
 
+import com.agr.agrsecurity.entry.VO.SysUserVO;
 import com.agr.agrsecurity.entry.VO.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,4 +13,9 @@ public interface UserMapper {
     List<UserVO> getUserVO();
 
     UserVO getUserVOByLogin(@Param("userName") String userName,@Param("passWord") String passWord);
+
+
+    SysUserVO selectUserByUserName(@Param("userName") String userName);
+
+
 }

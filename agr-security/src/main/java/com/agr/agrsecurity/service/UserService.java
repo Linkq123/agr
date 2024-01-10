@@ -1,5 +1,6 @@
 package com.agr.agrsecurity.service;
 
+import com.agr.agrsecurity.entry.VO.SysUserVO;
 import com.agr.agrsecurity.entry.VO.UserVO;
 import com.agr.agrsecurity.entry.query.UserLoginQuery;
 
@@ -12,4 +13,6 @@ public interface UserService {
     UserVO getUserOne();
 
     UserVO login(UserLoginQuery query);
+
+    SysUserVO selectUserByUserName(String UserName);
 }

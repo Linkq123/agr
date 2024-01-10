@@ -1,5 +1,6 @@
 package com.agr.agrsecurity.component;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.session.web.http.CookieHttpSessionIdResolver;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.session.web.http.HttpSessionIdResolver;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author linkq
  * @create 2024/1/10
  */
+@Slf4j
 @Service("httpSessionIdResolver")
 public class RestHttpSessionIdResolver implements HttpSessionIdResolver {
 
@@ -59,7 +61,7 @@ public class RestHttpSessionIdResolver implements HttpSessionIdResolver {
 
     @Override
     public void setSessionId(HttpServletRequest request, HttpServletResponse response, String sessionId) {
-        System.out.println(AUTH_TOKEN + "=" +  sessionId);
+        log.info(AUTH_TOKEN + "={}" ,  sessionId);
         response.setHeader(this.sessionIdName, sessionId);
         this.cookieHttpSessionIdResolver.setSessionId(request, response, sessionId);
     }
