@@ -31,7 +31,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+        log.info("-----------");
         SysUserVO sysUserVO = userService.selectUserByUserName(username);
         if (sysUserVO == null) {
             log.info("登录用户：{} 不存在", username);

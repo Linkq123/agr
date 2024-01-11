@@ -12,7 +12,7 @@ public interface UserService {
 
     UserVO getUserOne();
 
-    UserVO login(UserLoginQuery query);
+    Object login(UserLoginQuery query);
 
     SysUserVO selectUserByUserName(String UserName);
 }

@@ -2,12 +2,14 @@ package com.agr.agrsecurity.config;
 
 import com.agr.agrsecurity.component.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
@@ -21,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DefaultUserDetailsService userDetailsService;
     /**
-     * 登出成功的处理
+     * 登入失败的处理
      */
     @Autowired
     private LoginFailureHandler loginFailureHandler;
@@ -58,16 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginUserAccessDeniedHandler accessDeniedHandler;
 
-    /**
-     * 配置认证方式等
-     *
-     * @param auth
-     * @throws Exception
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
+
 
     /**
      * http相关的配置，包括登入登出、异常处理、会话管理等
@@ -102,5 +95,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .expiredSessionStrategy(sessionInformationExpiredHandler) // 顶号处理
         ;
 
+    }
+
+
+    /**
+     * 强散列哈希加密实现
+     */
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder()
+    {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 身份认证接口
+     */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+    {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
